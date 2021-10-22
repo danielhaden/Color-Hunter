@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # colorHunt.save_to_csv()
 
     flatUI = FlatUIColors()
-
+    flatUI.get_all_palettes()
 
 
 
