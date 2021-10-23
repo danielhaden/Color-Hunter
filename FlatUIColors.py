@@ -76,10 +76,13 @@ class FlatUIColors(BaseScraper):
                 r, g, b = rgb.split(",")
                 paletteColors.append(self.rgb_to_hex(int(r), int(g), int(b)))
 
-            self.collections[name] = paletteColors
+            if name is not None:
+                self.collections[name] = paletteColors
 
-        print(self.collections)
         self.browser.close()
+
+        for key, colors in self.collections.items():
+            print(key, ":", colors)
 
 
 

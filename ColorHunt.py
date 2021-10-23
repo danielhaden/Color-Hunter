@@ -118,27 +118,3 @@ class ColorHunt(BaseScraper):
         for key, collection in self.collections.items():
             print("Color Hunt collection {}".format(key), "contains {} palettes.".format(len(collection)))
 
-    def save_to_csv(self):
-        """
-        Saves results to CSV file
-        :return: None
-        """
-
-        # Open the file (create if necessary)
-        with open(self.filePath, 'w+', newline='') as f:
-
-            # create the csv writer
-            writer = csv.writer(f)
-
-            for key, collection in self.collections.items():
-
-                for palette in collection:
-                    row = [key]
-
-                    row = row + palette
-
-                    if len(row) > 1:
-                        writer.writerow(row)
-
-            f.close()
-

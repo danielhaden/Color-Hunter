@@ -1,3 +1,5 @@
+import csv
+
 from selenium import webdriver
 
 
@@ -14,6 +16,29 @@ class BaseScraper:
         """
         self.browser = webdriver.Chrome(
             executable_path='C:/Users/hadend.UNIVERSITY/PycharmProjects\ColorPaletteWebScraper/chromedriver.exe')
+
+    def save_to_csv(self):
+        """
+        Saves results to CSV file
+        :return: None
+        """
+
+        # Open the file (create if necessary)
+        with open(self.filePath, 'w+', newline='') as f:
+
+            # create the csv writer
+            writer = csv.writer(f)
+
+            for name, colors in self.collections.items():
+
+                name = [name]
+
+                row = name + colors
+
+                if len(row) > 1:
+                    writer.writerow(row)
+
+            f.close()
 
     @staticmethod
     def rgb_to_hex(r, g, b):
