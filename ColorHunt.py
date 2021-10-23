@@ -1,25 +1,15 @@
 import time
-import csv
 from bs4 import BeautifulSoup
-from selenium import webdriver
+from BaseScraper import BaseScraper
 
 
-class ColorHunt:
+class ColorHunt(BaseScraper):
 
-    filePath = "C:/Users/hadend.UNIVERSITY/Desktop/ColorHuntPalettes.csv"
+    filePath = ""
     mainURL = "https://colorhunt.co"
 
     def __init__(self):
-        self.urls = []
-        self.collections = {}
-        self.browser = None
-
-    def initiate_browser(self):
-        """ Instantiate a Chrome browser driven by Selenium
-        :return: None
-        """
-        self.browser = webdriver.Chrome(
-            executable_path='C:/Users/hadend.UNIVERSITY/PycharmProjects\ColorPaletteWebScraper/chromedriver.exe')
+        super(ColorHunt, self).__init__()
 
     def get_collections_urls(self):
         """ Get the URLs of all Color Hunt collections (from menu bar on left side of page)
@@ -107,7 +97,12 @@ class ColorHunt:
 
             palettes.append(colors)
 
-        self.collections[url.rsplit('/', 1)[1]] = palettes
+        for i, palette in enumerate(palettes):
+
+            ## create a palette name with the collection name and index
+            name = url.rsplit('/', 1)[1] + "-" + str(i)
+
+            self.collections[name] = palette
 
     def get_all_palettes(self):
         """Gets all palettes from every collection of Color Hunt"""
@@ -121,31 +116,3 @@ class ColorHunt:
 
     def print_stats(self):
         print("{} collections retrieved from Color Hunt.".format(len(self.collections)))
-
-        for key, collection in self.collections.items():
-            print("Color Hunt collection {}".format(key), "contains {} palettes.".format(len(collection)))
-
-    def save_to_csv(self):
-        """
-        Saves results to CSV file
-        :return: None
-        """
-
-        # Open the file (create if necessary)
-        with open(self.filePath, 'w+', newline='') as f:
-
-            # create the csv writer
-            writer = csv.writer(f)
-
-            for key, collection in self.collections.items():
-
-                for palette in collection:
-                    row = [key]
-
-                    row = row + palette
-
-                    if len(row) > 1:
-                        writer.writerow(row)
-
-            f.close()
-

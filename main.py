@@ -1,12 +1,15 @@
 from ColorHunt import ColorHunt
-
+from FlatUIColors import FlatUIColors
 
 if __name__ == '__main__':
 
-    ch = ColorHunt()
-    ch.get_all_palettes()
-    ch.print_stats()
-    ch.save_to_csv()
+    # Scrape  colorhunt.co
+    colorHunt = ColorHunt()
+    colorHunt.get_all_palettes()
+    colorHunt.print_stats()
+    colorHunt.save_to_csv()
 
-
-
+    # Scrape flatuicolors.com
+    flatUI = FlatUIColors()
+    flatUI.get_all_palettes()
+    flatUI.save_to_csv()
