@@ -1,14 +1,11 @@
 import time
-import csv
 from bs4 import BeautifulSoup
-from selenium import webdriver
-
 from BaseScraper import BaseScraper
 
 
 class ColorHunt(BaseScraper):
 
-    filePath = "C:/Users/hadend.UNIVERSITY/Desktop/ColorHuntPalettes.csv"
+    filePath = ""
     mainURL = "https://colorhunt.co"
 
     def __init__(self):
@@ -100,7 +97,12 @@ class ColorHunt(BaseScraper):
 
             palettes.append(colors)
 
-        self.collections[url.rsplit('/', 1)[1]] = palettes
+        for i, palette in enumerate(palettes):
+
+            ## create a palette name with the collection name and index
+            name = url.rsplit('/', 1)[1] + "-" + str(i)
+
+            self.collections[name] = palette
 
     def get_all_palettes(self):
         """Gets all palettes from every collection of Color Hunt"""
@@ -114,7 +116,3 @@ class ColorHunt(BaseScraper):
 
     def print_stats(self):
         print("{} collections retrieved from Color Hunt.".format(len(self.collections)))
-
-        for key, collection in self.collections.items():
-            print("Color Hunt collection {}".format(key), "contains {} palettes.".format(len(collection)))
-

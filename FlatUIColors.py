@@ -1,14 +1,11 @@
-import re
 import time
-
 from bs4 import BeautifulSoup
-
 from BaseScraper import BaseScraper
 
 
 class FlatUIColors(BaseScraper):
 
-    filePath = "C:/Users/hadend.UNIVERSITY/Desktop/flatUIPalettes.csv"
+    filePath = ""
     mainURL = "https://flatuicolors.com/"
 
     def __init__(self):

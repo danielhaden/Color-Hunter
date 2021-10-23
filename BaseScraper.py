@@ -1,5 +1,5 @@
 import csv
-
+import os
 from selenium import webdriver
 
 
@@ -14,8 +14,10 @@ class BaseScraper:
         """ Instantiate a Chrome browser driven by Selenium
         :return: None
         """
+        pathToDriver = os.getcwd() + "\chromedriver.exe"
+
         self.browser = webdriver.Chrome(
-            executable_path='C:/Users/hadend.UNIVERSITY/PycharmProjects\ColorPaletteWebScraper/chromedriver.exe')
+            executable_path=pathToDriver)
 
     def save_to_csv(self):
         """
